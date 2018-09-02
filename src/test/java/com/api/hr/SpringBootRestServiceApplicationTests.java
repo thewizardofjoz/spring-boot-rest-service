@@ -1,4 +1,4 @@
-package com.github.thewizardofjoz.springbootrestservice;
+package com.api.hr;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

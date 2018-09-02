@@ -1,4 +1,4 @@
-package com.github.thewizardofjoz.springbootrestservice;
+package com.api.hr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
