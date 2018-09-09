@@ -1,5 +1,5 @@
 
-package com.api.types.common;
+package com.api.hr.domain.common;
 
 import java.util.HashMap;
 import java.util.Map;

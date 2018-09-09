@@ -1,14 +1,14 @@
 
-package com.api.types;
+package com.api.hr.domain;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import com.api.types.common.Gender;
+import com.api.hr.domain.common.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -46,7 +46,7 @@ public class Employee {
      */
     @JsonProperty("first-name")
     @JsonPropertyDescription("Employee's first name.")
-    @Size(max = 150)
+    @Size(min = 2, max = 150)
     private String firstName;
     /**
      * Employee's middle name.

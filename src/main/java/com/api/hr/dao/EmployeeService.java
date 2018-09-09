@@ -1,12 +1,10 @@
 package com.api.hr.dao;
 
-import com.api.types.Employee;
-import org.springframework.stereotype.Component;
-
+import com.api.hr.domain.Employee;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeService {
@@ -23,13 +21,23 @@ public class EmployeeService {
     }
 
     public Employee save(final Employee e) {
-        employeesMap.put(e.getEmployeeId(), e);
+        String employeeId = e.getEmployeeId();
+        if (employeeId == null) {
+            employeeId = String.valueOf(employeesMap.size() + 1);
+            e.setEmployeeId(employeeId);
+        }
+        employeesMap.put(employeeId, e);
         return e;
     }
 
     public Employee findOne(final String id) {
-        return employeesMap.get(id);
+      return employeesMap.get(id);
     }
+
+    public Employee deleteById(final String id) {
+      return employeesMap.remove(id);
+    }
+
 
     private static Employee buildEmployee(String id, String firstName, String lastName) {
         final Employee employee = new Employee();
