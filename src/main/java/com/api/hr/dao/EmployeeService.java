@@ -4,6 +4,7 @@ import com.api.hr.domain.Employee;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,8 +13,8 @@ public class EmployeeService {
     private static Map<String, Employee> employeesMap = new HashMap<>();
 
     static {
-        employeesMap.put("1", buildEmployee("1", "Johanna", "J"));
-        employeesMap.put("2", buildEmployee("2", "Isabel", "J"));
+        employeesMap.put("1", buildEmployee("1", "Anna", "J"));
+        employeesMap.put("2", buildEmployee("2", "Bella", "J"));
     }
 
     public Collection<Employee> findAll() {
@@ -30,12 +31,12 @@ public class EmployeeService {
         return e;
     }
 
-    public Employee findOne(final String id) {
-      return employeesMap.get(id);
+    public Optional<Employee> findOne(final String id) {
+      return Optional.ofNullable(employeesMap.get(id));
     }
 
-    public Employee deleteById(final String id) {
-      return employeesMap.remove(id);
+    public Optional<Employee> deleteById(final String id) {
+      return Optional.ofNullable(employeesMap.remove(id));
     }
 
 
