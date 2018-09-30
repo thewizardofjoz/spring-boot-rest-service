@@ -1,8 +1,9 @@
 package com.api.hr.controllers;
 
 import com.api.hr.dao.EmployeeService;
-import com.api.hr.exception.ResourceNotFoundException;
 import com.api.hr.domain.Employee;
+import com.api.hr.domain.EmployeeResource;
+import com.api.hr.exception.ResourceNotFoundException;
 import java.net.URI;
 import java.util.Collection;
 import javax.validation.Valid;
@@ -28,26 +29,22 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    public Employee getEmployee(@PathVariable String id) {
-        final Employee employee = employeeService.findOne(id);
-        if(employee == null) {
-            throw new ResourceNotFoundException();
-        }
-        return employee;
+    public EmployeeResource get(@PathVariable String id) {
+        return employeeService.findOne(id)
+            .map(EmployeeResource::new)
+            .orElseThrow(ResourceNotFoundException::new);
     }
 
     @PostMapping("employees")
-    public ResponseEntity createEmployee(@Valid @RequestBody Employee employee) {
+    public ResponseEntity<EmployeeResource> createEmployee(@Valid @RequestBody Employee employee) {
         Employee savedEmployee = employeeService.save(employee);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedEmployee.getEmployeeId()).toUri();
-        return ResponseEntity.created(uri).build();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+            .buildAndExpand(savedEmployee.getEmployeeId()).toUri();
+        return ResponseEntity.created(uri).body(new EmployeeResource(savedEmployee));
     }
 
     @DeleteMapping("/employees/{id}")
     public void deleteEmployee(@PathVariable String id) {
-        final Employee employee = employeeService.deleteById(id);
-        if(employee == null) {
-            throw new ResourceNotFoundException();
-        }
+        employeeService.deleteById(id).orElseThrow(ResourceNotFoundException::new);
     }
 }
