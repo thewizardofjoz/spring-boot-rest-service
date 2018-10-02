@@ -1,13 +1,18 @@
 package com.api.hr.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import com.api.hr.dao.EmployeeService;
 import com.api.hr.domain.Employee;
 import com.api.hr.domain.EmployeeResource;
 import com.api.hr.exception.ResourceNotFoundException;
 import java.net.URI;
-import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +27,6 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-
-    @GetMapping("/employees")
-    public Collection<Employee> getEmployees() {
-        return employeeService.findAll();
-    }
 
     @GetMapping("/employees/{id}")
     public EmployeeResource get(@PathVariable String id) {
@@ -46,5 +46,19 @@ public class EmployeeController {
     @DeleteMapping("/employees/{id}")
     public void deleteEmployee(@PathVariable String id) {
         employeeService.deleteById(id).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @GetMapping("/employees")
+    public Resources<EmployeeResource> getAll() {
+
+        final List<EmployeeResource> resourceList =
+            employeeService.findAll().stream().map(EmployeeResource::new).collect(Collectors.toList());
+        return buildEmployeeResources(resourceList);
+    }
+
+    private Resources<EmployeeResource> buildEmployeeResources(List<EmployeeResource> employeeResources) {
+        final Resources<EmployeeResource> resources = new Resources<>(employeeResources);
+        resources.add(linkTo(methodOn(this.getClass()).getAll()).withSelfRel());
+        return resources;
     }
 }
