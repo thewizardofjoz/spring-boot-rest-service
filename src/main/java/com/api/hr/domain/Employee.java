@@ -2,6 +2,7 @@
 package com.api.hr.domain;
 
 import com.api.hr.domain.common.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -84,6 +85,7 @@ public class Employee {
      * Date and Time in Internet date and time format. For example, yyyy-MM-ddTHH:mm:ss.SSSZ
      * 
      */
+    @JsonIgnore
     @JsonProperty("date-of-birth")
     @ApiModelProperty("Date and Time in Internet date and time format. For example, yyyy-MM-ddTHH:mm:ss.SSSZ")
     @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])[T,t]([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]+)?([Zz]|[+-][0-9]{2}:[0-9]{2})$")
@@ -202,6 +204,7 @@ public class Employee {
      * Date and Time in Internet date and time format. For example, yyyy-MM-ddTHH:mm:ss.SSSZ
      * 
      */
+    @JsonIgnore
     @JsonProperty("date-of-birth")
     public String getDateOfBirth() {
         return dateOfBirth;

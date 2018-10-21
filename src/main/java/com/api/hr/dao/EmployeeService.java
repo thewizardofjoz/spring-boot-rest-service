@@ -13,8 +13,8 @@ public class EmployeeService {
     private static Map<String, Employee> employeesMap = new HashMap<>();
 
     static {
-        employeesMap.put("1", buildEmployee("1", "Anna", "J"));
-        employeesMap.put("2", buildEmployee("2", "Bella", "J"));
+        employeesMap.put("1", buildEmployee("1", "Anna", "J", "2014-01-01T12:00:30.30Z"));
+        employeesMap.put("2", buildEmployee("2", "Bella", "J", "2017-01-01T12:00:30.30Z"));
     }
 
     public Collection<Employee> findAll() {
@@ -40,11 +40,12 @@ public class EmployeeService {
     }
 
 
-    private static Employee buildEmployee(String id, String firstName, String lastName) {
+    private static Employee buildEmployee(String id, String firstName, String lastName, String dateOfBirth) {
         final Employee employee = new Employee();
         employee.setEmployeeId(id);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
+        employee.setDateOfBirth(dateOfBirth);
         return employee;
     }
 
