@@ -5,8 +5,8 @@ import com.api.hr.domain.common.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -38,14 +38,14 @@ public class Employee {
      * 
      */
     @JsonProperty("employee-id")
-    @JsonPropertyDescription("The unique identifier for an employee")
+    @ApiModelProperty("The unique identifier for an employee")
     private String employeeId;
     /**
      * Employee's first name.
      * 
      */
     @JsonProperty("first-name")
-    @JsonPropertyDescription("Employee's first name.")
+    @ApiModelProperty("Employee's first name.")
     @Size(min = 2, max = 150)
     private String firstName;
     /**
@@ -53,7 +53,7 @@ public class Employee {
      * 
      */
     @JsonProperty("middle-name")
-    @JsonPropertyDescription("Employee's middle name.")
+    @ApiModelProperty("Employee's middle name.")
     @Size(max = 100)
     private String middleName;
     /**
@@ -61,7 +61,7 @@ public class Employee {
      * 
      */
     @JsonProperty("last-name")
-    @JsonPropertyDescription("Employee's last name.")
+    @ApiModelProperty("Employee's last name.")
     @Size(max = 150)
     private String lastName;
     /**
@@ -69,14 +69,14 @@ public class Employee {
      * 
      */
     @JsonProperty("gender")
-    @JsonPropertyDescription("The gender type.")
+    @ApiModelProperty("The gender type.")
     private Gender gender;
     /**
      * The email address.
      * 
      */
     @JsonProperty("work-email")
-    @JsonPropertyDescription("The email address.")
+    @ApiModelProperty("The email address.")
     @Pattern(regexp = "^.+@[^\"\\-].+$")
     @Size(min = 3, max = 254)
     private String workEmail;
@@ -85,7 +85,7 @@ public class Employee {
      * 
      */
     @JsonProperty("date-of-birth")
-    @JsonPropertyDescription("Date and Time in Internet date and time format. For example, yyyy-MM-ddTHH:mm:ss.SSSZ")
+    @ApiModelProperty("Date and Time in Internet date and time format. For example, yyyy-MM-ddTHH:mm:ss.SSSZ")
     @Pattern(regexp = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])[T,t]([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]+)?([Zz]|[+-][0-9]{2}:[0-9]{2})$")
     @Size(min = 20, max = 64)
     private String dateOfBirth;
